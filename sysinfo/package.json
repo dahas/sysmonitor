@@ -1,0 +1,14 @@
+{
+  "name": "sysinfo",
+  "version": "1.0.0",
+  "description": "Retrieve all kind of system information",
+  "main": "os.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "M. J. Wolf",
+  "license": "ISC",
+  "dependencies": {
+    "os-utils": "0.0.14"
+  }
+}

@@ -28,7 +28,10 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.sass"
+              {
+                "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
+              },
+              "src/styles.scss"
             ],
             "scripts": []
           },
@@ -93,7 +96,10 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.sass"
+              {
+                "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
+              },
+              "src/styles.scss"
             ],
             "scripts": []
           }
@@ -124,6 +130,12 @@
           }
         }
       }
-    }},
-  "defaultProject": "sysmonitor"
+    }
+  },
+  "defaultProject": "sysmonitor",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }

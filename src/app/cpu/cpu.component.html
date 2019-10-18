@@ -1,0 +1,17 @@
+<kendo-chart [transitions]="false">
+    <kendo-chart-value-axis>
+        <kendo-chart-value-axis-item *ngFor="let item of valueAxes" [title]="{ text: item.title }" [min]="item.min"
+            [max]="item.max">
+        </kendo-chart-value-axis-item>
+    </kendo-chart-value-axis>
+    <kendo-chart-series>
+        <kendo-chart-title text="System CPU usage (%)"></kendo-chart-title>
+        <kendo-chart-series-item type="scatterLine" style="smooth" [data]="series" yField="cpu" xField="time"
+            [markers]="{ visible: false }">
+        </kendo-chart-series-item>
+    </kendo-chart-series>
+    <kendo-chart-x-axis>
+        <kendo-chart-x-axis-item baseUnit="seconds" baseUnitSteps="seconds" [min]="min" [max]="max">
+        </kendo-chart-x-axis-item>
+    </kendo-chart-x-axis>
+</kendo-chart>
