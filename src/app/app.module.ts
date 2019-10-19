@@ -10,6 +10,8 @@ import { CpuComponent } from './cpu/cpu.component';
 import { LayoutModule } from '@progress/kendo-angular-layout';
 import { SystemInfoService } from './services/system-info.service';
 import { MemComponent } from './mem/mem.component';
+import { ToolBarModule } from '@progress/kendo-angular-toolbar';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { MemComponent } from './mem/mem.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     ChartsModule,
-    LayoutModule
+    LayoutModule,
+    ToolBarModule
   ],
   providers: [SystemInfoService],
   bootstrap: [AppComponent]

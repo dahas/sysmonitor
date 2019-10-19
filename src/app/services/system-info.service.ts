@@ -15,4 +15,8 @@ export class SystemInfoService {
       this.ws.onclose = event => observer.complete();
     });
   }
+
+  public sendMessage(m: string): void {
+    this.ws.send(m);
+}
 }

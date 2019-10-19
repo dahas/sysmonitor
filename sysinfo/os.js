@@ -8,9 +8,7 @@ const app = express();
 const port = process.env.PORT || 8000;
 const server = http.createServer(app);
 
-server.listen(port, () => {
-  console.log(`HTTP server running on port ${port}...`);
-});
+server.listen(port, () => console.log(`HTTP server running on port ${port}...`));
 
 // WebSocket Server
 
@@ -19,36 +17,51 @@ const wsServer = new ws.Server({ port: wsPort });
 
 console.log(`WebSocket server is running on port ${wsPort}...`);
 
-wsServer.on('connection', client => {
-  setInterval(() => {
+let interval = [];
+
+wsServer.on('connection', socket => {
+  startMeasuring(socket);
+
+  socket.on('message', m => {
+    switch (m) {
+      case 'stop':
+        stopMeasuring();
+        break;
+      case 'start':
+        startMeasuring(socket);
+        break;
+    }
+  });
+
+  socket.on('close', () => {
+    stopMeasuring();
+  });
+});
+
+function startMeasuring(socket) {
+  interval.push(setInterval(() => {
     let sysinfo = {
       memTotal: Math.floor(os.totalmem()),
       memFree: Math.floor(os.freemem()),
       memUsed: Math.floor(os.totalmem() - os.freemem()),
-      uptime: msToTime(os.sysUptime()*1000)
+      uptime: msToTime(os.sysUptime() * 1000)
     };
     os.cpuUsage(v => {
       sysinfo.cpu = Math.round(v * 100);
       sysinfo.time = new Date();
       try {
-        client.send(JSON.stringify(sysinfo));
-      } catch (e) {}
+        socket.send(JSON.stringify(sysinfo));
+      } catch (e) { }
     });
-  }, 1000);
-});
+  }, 1000));
+}
 
-wsServer.on('open', function open() {
-  console.log('connected');
-});
- 
-wsServer.on('close', function close() {
-  console.log('disconnected');
-});
+function stopMeasuring() {
+  interval.forEach(iv => clearInterval(iv));
+  interval = [];
+}
 
-wsServer.on('disconnection', () => {
-  console.log('ds ads da asd sasad asd sad asd')
-});
-
+// -------- HELPER:
 
 function msToTime(duration) {
   var seconds = Math.floor((duration / 1000) % 60),
