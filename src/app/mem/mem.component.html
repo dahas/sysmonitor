@@ -1,12 +1,12 @@
 <kendo-chart [transitions]="false" style="height: 95%;">
     <kendo-chart-series>
-        <kendo-chart-title text="System CPU usage (%)"></kendo-chart-title>
-        <kendo-chart-series-item type="scatterLine" style="smooth" [data]="series" yField="cpu" xField="time"
+        <kendo-chart-title text="Memory used (MB)"></kendo-chart-title>
+        <kendo-chart-series-item type="scatterLine" style="smooth" color="green" [data]="series" yField="memUsed" xField="time"
             [markers]="{ visible: false }">
         </kendo-chart-series-item>
     </kendo-chart-series>
     <kendo-chart-y-axis>
-        <kendo-chart-y-axis-item baseUnit="percent" baseUnitSteps="percent" title="{text: 'Percentage'}" min="0" max="100">
+        <kendo-chart-y-axis-item baseUnit="mb" baseUnitSteps="mb" title="{text: 'MB'}" min="0" max="16000">
         </kendo-chart-y-axis-item>
     </kendo-chart-y-axis>
     <kendo-chart-x-axis>

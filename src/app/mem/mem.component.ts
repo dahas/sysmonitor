@@ -4,13 +4,13 @@ import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-cpu',
-  templateUrl: './cpu.component.html'
+  selector: 'app-mem',
+  templateUrl: './mem.component.html'
 })
-export class CpuComponent implements OnInit, OnDestroy {
+export class MemComponent implements OnInit, OnDestroy {
 
   public valueAxes: any[] = [{
-    title: 'Percentage',
+    title: 'MB',
     min: 0,
     max: 100
   }];
@@ -31,7 +31,7 @@ export class CpuComponent implements OnInit, OnDestroy {
       .subscribe(m => {
         const item: any = JSON.parse(m);
         item.time = new Date(item.time);
-        if (item.cpu) {
+        if (item.memUsed) {
           this.series = [...this.series, item];
           if (this.series.length >= environment.charts.xRange) {
             this.min = this.series[this.series.length - environment.charts.xRange].time;
@@ -40,7 +40,6 @@ export class CpuComponent implements OnInit, OnDestroy {
         }
       });
   }
-
   ngOnDestroy(): void {
     this.wsSubscription.unsubscribe();
   }

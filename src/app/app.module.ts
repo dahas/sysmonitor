@@ -9,11 +9,13 @@ import 'hammerjs';
 import { CpuComponent } from './cpu/cpu.component';
 import { LayoutModule } from '@progress/kendo-angular-layout';
 import { SystemInfoService } from './services/system-info.service';
+import { MemComponent } from './mem/mem.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CpuComponent
+    CpuComponent,
+    MemComponent
   ],
   imports: [
     BrowserModule,

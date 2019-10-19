@@ -19,21 +19,34 @@ const wsServer = new ws.Server({ port: wsPort });
 
 console.log(`WebSocket server is running on port ${wsPort}...`);
 
-wsServer.on('connection', () => {
+wsServer.on('connection', client => {
   setInterval(() => {
     let sysinfo = {
       memTotal: Math.floor(os.totalmem()),
       memFree: Math.floor(os.freemem()),
+      memUsed: Math.floor(os.totalmem() - os.freemem()),
       uptime: msToTime(os.sysUptime()*1000)
     };
     os.cpuUsage(v => {
       sysinfo.cpu = Math.round(v * 100);
       sysinfo.time = new Date();
-      wsServer.clients.forEach(client => {
-        client.send(JSON.stringify(sysinfo))
-      });
+      try {
+        client.send(JSON.stringify(sysinfo));
+      } catch (e) {}
     });
   }, 1000);
+});
+
+wsServer.on('open', function open() {
+  console.log('connected');
+});
+ 
+wsServer.on('close', function close() {
+  console.log('disconnected');
+});
+
+wsServer.on('disconnection', () => {
+  console.log('ds ads da asd sasad asd sad asd')
 });
 
 
