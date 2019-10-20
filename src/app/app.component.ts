@@ -10,7 +10,7 @@ import { SystemInfoService } from './services/system-info.service';
               <app-mem></app-mem>
             </kendo-splitter-pane>
 
-            <kendo-splitter-pane>
+            <kendo-splitter-pane min="200px">
               <app-cpu></app-cpu>
             </kendo-splitter-pane>
 
