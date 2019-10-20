@@ -15,6 +15,8 @@ export class MemComponent implements OnInit, OnDestroy {
     max: 100
   }];
 
+  public maxY = 16000;
+
   public series = [];
   public min: Date;
   public max: Date;
@@ -30,6 +32,7 @@ export class MemComponent implements OnInit, OnDestroy {
     this.wsSubscription = this.wsService.createObservableSocket()
       .subscribe(m => {
         const item: any = JSON.parse(m);
+        this.maxY = item.memTotal;
         item.time = new Date(item.time);
         if (item.memUsed) {
           this.series = [...this.series, item];

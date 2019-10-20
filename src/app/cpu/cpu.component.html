@@ -1,7 +1,7 @@
 <kendo-chart [transitions]="false" style="height: 95%;">
     <kendo-chart-series>
         <kendo-chart-title text="System CPU usage (%)"></kendo-chart-title>
-        <kendo-chart-series-item type="scatterLine" style="smooth" [data]="series" yField="cpu" xField="time"
+        <kendo-chart-series-item type="scatterLine" style="smooth" color="orange" [data]="series" yField="cpu" xField="time"
             [markers]="{ visible: false }">
         </kendo-chart-series-item>
     </kendo-chart-series>
