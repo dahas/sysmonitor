@@ -4,8 +4,6 @@ import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { jqxChartComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxchart';
 
-// import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
-// import { jqxChartComponent } from 'jqwidgets-ng/jqxchart';
 @Component({
     selector: 'app-cpu',
     templateUrl: './cpu.component.html'

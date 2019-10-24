@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { SystemInfoService } from './services/system-info.service';
 
 @Component({
   selector: 'app-root',
@@ -19,5 +18,5 @@ import { SystemInfoService } from './services/system-info.service';
 })
 export class AppComponent {
 
-  constructor(private wsService: SystemInfoService) { }
+  constructor() { }
 }

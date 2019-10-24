@@ -14,7 +14,6 @@ import { ToolBarModule } from '@progress/kendo-angular-toolbar';
 
 import { jqxChartComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxchart';
 
-
 @NgModule({
   declarations: [
     AppComponent,
