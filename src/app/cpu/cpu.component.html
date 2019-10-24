@@ -1,16 +1,8 @@
-<kendo-chart [transitions]="false" style="height: 100%; overflow: hidden;">
-    <kendo-chart-series>
-        <kendo-chart-title text="System CPU usage (%)"></kendo-chart-title>
-        <kendo-chart-series-item type="scatterLine" style="smooth" color="orange" [data]="series" yField="cpu" xField="time"
-            [markers]="{ visible: false }">
-        </kendo-chart-series-item>
-    </kendo-chart-series>
-    <kendo-chart-y-axis>
-        <kendo-chart-y-axis-item baseUnit="percent" baseUnitSteps="percent" title="{text: 'Percentage'}" min="0" max="100">
-        </kendo-chart-y-axis-item>
-    </kendo-chart-y-axis>
-    <kendo-chart-x-axis>
-        <kendo-chart-x-axis-item baseUnit="seconds" baseUnitSteps="seconds" [min]="min" [max]="max">
-        </kendo-chart-x-axis-item>
-    </kendo-chart-x-axis>
-</kendo-chart>
+<jqxChart #cpuChart
+    [width]="'100%'" [height]="'100%'" [showLegend]="false"
+    [title]="'System CPU usage (%)'" [enableAxisTextAnimation]="true"
+    [description]="''" [animationDuration]="1000"
+    [showLegend]="true" [enableAnimations]="false" [padding]="padding"
+    [titlePadding]="titlePadding" [source]="data" [xAxis]="xAxis"
+    [valueAxis]="valueAxis" [seriesGroups]="seriesGroups" [colorScheme]="'scheme05'">
+</jqxChart>

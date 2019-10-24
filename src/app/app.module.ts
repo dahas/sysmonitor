@@ -12,12 +12,15 @@ import { SystemInfoService } from './services/system-info.service';
 import { MemComponent } from './mem/mem.component';
 import { ToolBarModule } from '@progress/kendo-angular-toolbar';
 
+import { jqxChartComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxchart';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     CpuComponent,
-    MemComponent
+    MemComponent,
+    jqxChartComponent
   ],
   imports: [
     BrowserModule,
