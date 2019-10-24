@@ -1,16 +1,7 @@
-<kendo-chart [transitions]="false" style="height: 100%; overflow: hidden;">
-    <kendo-chart-series>
-        <kendo-chart-title text="Memory used (MB)"></kendo-chart-title>
-        <kendo-chart-series-item type="scatterLine" style="smooth" color="lightgreen" [data]="series" yField="memUsed" xField="time"
-            [markers]="{ visible: false }">
-        </kendo-chart-series-item>
-    </kendo-chart-series>
-    <kendo-chart-y-axis>
-        <kendo-chart-y-axis-item baseUnit="mb" baseUnitSteps="mb" title="{text: 'MB'}" min="0" [max]="maxY">
-        </kendo-chart-y-axis-item>
-    </kendo-chart-y-axis>
-    <kendo-chart-x-axis>
-        <kendo-chart-x-axis-item baseUnit="seconds" baseUnitSteps="seconds" [min]="min" [max]="max">
-        </kendo-chart-x-axis-item>
-    </kendo-chart-x-axis>
-</kendo-chart>
+<jqxChart #memChart (mouseenter)="stopRefreshing()" (mouseleave)="startRefreshing()"
+    [width]="'100%'" [height]="'100%'" [showLegend]="false"
+    [title]="'Memory used (MB)'" [enableAxisTextAnimation]="true"
+    [description]="''" [animationDuration]="1000" [enableAnimations]="false" [padding]="padding"
+    [titlePadding]="titlePadding" [source]="data" [xAxis]="xAxis"
+    [valueAxis]="valueAxis" [seriesGroups]="seriesGroups" [colorScheme]="'scheme05'">
+</jqxChart>

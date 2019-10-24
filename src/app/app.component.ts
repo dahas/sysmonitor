@@ -3,20 +3,10 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   template: `
-      <kendo-splitter orientation="horizontal" style="height: 100%;">
-
-            <kendo-splitter-pane size="50%" min="200px">
-              <app-mem></app-mem>
-            </kendo-splitter-pane>
-
-            <kendo-splitter-pane min="200px">
-              <app-cpu></app-cpu>
-            </kendo-splitter-pane>
-
-          </kendo-splitter>
+      <jqxSplitter #mainSplitter [width]="'100%'" [height]="'100%'" [panels]="[{ size: '50%' }]">
+          <app-mem></app-mem>
+          <app-cpu></app-cpu>
+      </jqxSplitter>
     `,
 })
-export class AppComponent {
-
-  constructor() { }
-}
+export class AppComponent {}

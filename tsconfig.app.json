@@ -6,8 +6,7 @@
   },
   "files": [
     "src/main.ts",
-    "src/polyfills.ts",
-    "node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxchart.ts"
+    "src/polyfills.ts"
   ],
   "include": [
     "src/**/*.ts"

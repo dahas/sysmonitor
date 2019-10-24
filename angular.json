@@ -32,7 +32,7 @@
                 "input": "src/assets/materialdark/all.css"
               },
               "src/styles.scss",
-              "node_modules/jqwidgets-scripts/jqwidgets/styles/jqx.base.css"
+              "node_modules/jqwidgets-ng/jqwidgets/styles/jqx.base.css"
             ],
             "scripts": []
           },
@@ -101,7 +101,7 @@
                 "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
               },
               "src/styles.scss",
-              "node_modules/jqwidgets-scripts/jqwidgets/styles/jqx.base.css"
+              "node_modules/jqwidgets-ng/jqwidgets/styles/jqx.base.css"
             ],
             "scripts": []
           }

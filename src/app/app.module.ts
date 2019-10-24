@@ -12,7 +12,8 @@ import { SystemInfoService } from './services/system-info.service';
 import { MemComponent } from './mem/mem.component';
 import { ToolBarModule } from '@progress/kendo-angular-toolbar';
 
-import { jqxChartComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxchart';
+import { jqxChartComponent } from 'jqwidgets-ng/jqxchart';
+import { jqxSplitterModule } from 'jqwidgets-ng/jqxsplitter';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { jqxChartComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxcha
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    jqxSplitterModule,
     ChartsModule,
     LayoutModule,
     ToolBarModule

@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild } from '@angular
 import { SystemInfoService } from './../services/system-info.service';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { jqxChartComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxchart';
+import { jqxChartComponent } from 'jqwidgets-ng/jqxchart';
 
 @Component({
     selector: 'app-cpu',
@@ -13,9 +13,11 @@ export class CpuComponent implements AfterViewInit, OnInit, OnDestroy {
 
     private wsSubscription: Subscription;
 
+    private refresh = true;
+
     data: any[] = [];
-    padding: any = { left: 5, top: 5, right: 5, bottom: 5 };
-    titlePadding: any = { left: 0, top: 0, right: 0, bottom: 10 };
+    padding: any = { left: 5, top: 5, right: 5, bottom: 15 };
+    titlePadding: any = { left: 0, top: 5, right: 0, bottom: 10 };
 
     xAxis: any =
         {
@@ -46,8 +48,7 @@ export class CpuComponent implements AfterViewInit, OnInit, OnDestroy {
                 },
                 series: [
                     {
-                        dataField: 'value', displayText: 'value', opacity: 0.5, lineWidth: 1,
-                        symbolType: 'circle', fillColorSymbolSelected: 'white', symbolSize: 1
+                        dataField: 'value', formatFunction: this.format, displayText: 'Usage', opacity: 0.5, lineWidth: 1
                     }
                 ]
             }
@@ -80,11 +81,25 @@ export class CpuComponent implements AfterViewInit, OnInit, OnDestroy {
                 const item: any = JSON.parse(m);
                 item.time = new Date(item.time);
                 data.push({ timestamp: item.time, value: item.cpu });
-                this.cpuChart.update();
+                if (this.refresh) {
+                  this.cpuChart.update();
+                }
             });
     }
 
     ngOnDestroy(): void {
         this.wsSubscription.unsubscribe();
+    }
+
+    format(value) {
+      return `CPU usage: ${value} %`;
+    }
+
+    stopRefreshing(): void {
+      this.refresh = false;
+    }
+
+    startRefreshing(): void {
+      this.refresh = true;
     }
 }

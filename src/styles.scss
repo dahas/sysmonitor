@@ -2,7 +2,9 @@ html,
 body {
   margin: 0;
   padding: 0;
-  height: 100%;
+  height: calc(100% - 1px);
+  width: calc(100% - 1px);
+  overflow: hidden;
 }
 body {
   font-family: "RobotoRegular", Helvetica, Arial, sans-serif;

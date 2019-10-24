@@ -1,49 +1,106 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, ViewChild, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { SystemInfoService } from './../services/system-info.service';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { jqxChartComponent } from 'jqwidgets-ng/jqxchart';
 
 @Component({
   selector: 'app-mem',
   templateUrl: './mem.component.html'
 })
-export class MemComponent implements OnInit, OnDestroy {
+export class MemComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  public valueAxes: any[] = [{
-    title: 'MB',
-    min: 0,
-    max: 100
-  }];
-
-  public maxY = 16000;
-
-  public series = [];
-  public min: Date;
-  public max: Date;
+  @ViewChild('memChart', { static: false }) memChart: jqxChartComponent;
 
   private wsSubscription: Subscription;
 
-  constructor(private wsService: SystemInfoService) {
-    this.min = new Date();
-    this.max = new Date(this.min.getTime() + (environment.charts.xRange * 1000));
+  private refresh = true;
+
+  data: any[] = [];
+  padding: any = { left: 5, top: 5, right: 5, bottom: 15 };
+  titlePadding: any = { left: 0, top: 5, right: 0, bottom: 10 };
+
+  xAxis: any =
+    {
+      dataField: 'timestamp',
+      type: 'date',
+      baseUnit: 'second',
+      unitInterval: 5,
+      formatFunction: (value: any) => {
+        return jqx.dataFormat.formatdate(value, 'hh:mm:ss', 'de-DE');
+      },
+      gridLines: { step: 1 },
+      valuesOnTicks: true,
+      labels: { angle: -0, offset: { x: -17, y: 0 } }
+    };
+
+  seriesGroups: any[] =
+    [
+      {
+        type: 'area',
+        columnsGapPercent: 10,
+        alignEndPointsWithIntervals: true,
+        valueAxis:
+        {
+          minValue: 0,
+          maxValue: 16000,
+          unitInterval: 2000,
+          title: { text: 'MegaByte' }
+        },
+        series: [
+          {
+            dataField: 'value', formatFunction: this.format, displayText: 'Usage', opacity: 0.5, lineWidth: 1
+          }
+        ]
+      }
+    ];
+
+  constructor(private wsService: SystemInfoService) { }
+
+  ngOnInit() {
+    this.generateChartData();
   }
 
-  ngOnInit(): void {
+  generateChartData = () => {
+    const timestamp = new Date();
+    for (let i = 0; i < environment.charts.xRange; i++) {
+      timestamp.setMilliseconds(0);
+      timestamp.setSeconds(timestamp.getSeconds() - 1);
+      this.data.push({ timestamp: new Date(timestamp.valueOf()), value: 0 });
+    }
+    this.data = this.data.reverse();
+  }
+
+  ngAfterViewInit(): void {
+    const data = this.memChart.source();
     this.wsSubscription = this.wsService.createObservableSocket()
       .subscribe(m => {
+        if (data.length >= environment.charts.xRange) {
+          data.splice(0, 1);
+        }
         const item: any = JSON.parse(m);
-        this.maxY = item.memTotal;
         item.time = new Date(item.time);
-        if (item.memUsed) {
-          this.series = [...this.series, item];
-          if (this.series.length >= environment.charts.xRange) {
-            this.min = this.series[this.series.length - environment.charts.xRange].time;
-            this.max = item.time;
-          }
+        data.push({ timestamp: item.time, value: item.memUsed });
+        this.seriesGroups.map(s => s.valueAxis.maxValue = Math.round(item.memTotal / 1000) * 1000);
+        if (this.refresh) {
+          this.memChart.update();
         }
       });
   }
+
   ngOnDestroy(): void {
     this.wsSubscription.unsubscribe();
+  }
+
+  format(value) {
+    return `Memory used: ${value} MB`;
+  }
+
+  stopRefreshing(): void {
+    this.refresh = false;
+  }
+
+  startRefreshing(): void {
+    this.refresh = true;
   }
 }
