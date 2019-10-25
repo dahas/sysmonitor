@@ -72,15 +72,14 @@ export class MemComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const data = this.memChart.source();
     this.wsSubscription = this.wsService.createObservableSocket()
       .subscribe(m => {
-        if (data.length >= environment.charts.xRange) {
-          data.splice(0, 1);
+        if (this.memData.length >= environment.charts.xRange) {
+          this.memData.splice(0, 1);
         }
         const item: any = JSON.parse(m);
         item.time = new Date(item.time);
-        data.push({ timestamp: item.time, value: item.memUsed });
+        this.memData.push({ timestamp: item.time, value: item.memUsed });
         this.seriesGroups.map(s => s.valueAxis.maxValue = Math.round(item.memTotal / 1000) * 1000);
         if (this.refreshMem) {
           this.memChart.update();

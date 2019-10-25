@@ -71,16 +71,14 @@ export class CpuComponent implements AfterViewInit, OnInit, OnDestroy {
     }
 
     ngAfterViewInit(): void {
-        const data = this.cpuChart.source();
-
         this.wsSubscription = this.wsService.createObservableSocket()
             .subscribe(m => {
-                if (data.length >= environment.charts.xRange) {
-                    data.splice(0, 1);
+                if (this.cpuData.length >= environment.charts.xRange) {
+                    this.cpuData.splice(0, 1);
                 }
                 const item: any = JSON.parse(m);
                 item.time = new Date(item.time);
-                data.push({ timestamp: item.time, value: item.cpu });
+                this.cpuData.push({ timestamp: item.time, value: item.cpu });
                 if (this.refreshCpu) {
                   this.cpuChart.update();
                 }
