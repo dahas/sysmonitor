@@ -1,4 +1,4 @@
-<jqxChart #cpuChart (mouseenter)="toggleRefreshingCpu()" (mouseleave)="toggleRefreshingCpu()"
+<jqxChart #cpuChart (mousemove)="pauseCpuChartUpdate($event)" (mouseleave)="restartCpuChartUpdate()"
     [width]="'100%'" [height]="'100%'" [showLegend]="false"
     [title]="'System CPU usage (%)'" [enableAxisTextAnimation]="true"
     [description]="''" [animationDuration]="1000" [enableAnimations]="false" [padding]="padding"

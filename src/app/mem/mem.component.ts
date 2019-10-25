@@ -45,7 +45,7 @@ export class MemComponent implements OnInit, OnDestroy, AfterViewInit {
           minValue: 0,
           maxValue: 16000,
           unitInterval: 2000,
-          title: { text: 'MegaByte' }
+          // title: { text: 'MegaByte' }
         },
         series: [
           {
@@ -95,7 +95,15 @@ export class MemComponent implements OnInit, OnDestroy, AfterViewInit {
     return `Memory used: ${value} MB`;
   }
 
-  toggleRefreshingMem(): void {
-    this.refreshMem = !this.refreshMem;
+  pauseMemChartUpdate(ev): void {
+    if (ev.target.nodeName === 'path') {
+      this.refreshMem = false;
+    } else {
+      this.refreshMem = true;
+    }
+  }
+
+  restartMemChartUpdate(): void {
+    this.refreshMem = true;
   }
 }

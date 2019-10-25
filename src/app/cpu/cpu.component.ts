@@ -44,7 +44,7 @@ export class CpuComponent implements AfterViewInit, OnInit, OnDestroy {
                     minValue: 0,
                     maxValue: 100,
                     unitInterval: 20,
-                    title: { text: 'Percentage' }
+                    // title: { text: 'Percentage' }
                 },
                 series: [
                     {
@@ -80,7 +80,7 @@ export class CpuComponent implements AfterViewInit, OnInit, OnDestroy {
                 item.time = new Date(item.time);
                 this.cpuData.push({ timestamp: item.time, value: item.cpu });
                 if (this.refreshCpu) {
-                  this.cpuChart.update();
+                    this.cpuChart.update();
                 }
             });
     }
@@ -90,10 +90,18 @@ export class CpuComponent implements AfterViewInit, OnInit, OnDestroy {
     }
 
     formatCpu(value) {
-      return `CPU usage: ${value} %`;
+        return `CPU usage: ${value} %`;
     }
 
-    toggleRefreshingCpu(): void {
-      this.refreshCpu = !this.refreshCpu;
+    pauseCpuChartUpdate(ev): void {
+        if (ev.target.nodeName === 'path') {
+            this.refreshCpu = false;
+          } else {
+            this.refreshCpu = true;
+          }
+    }
+
+    restartCpuChartUpdate(): void {
+      this.refreshCpu = true;
     }
 }
