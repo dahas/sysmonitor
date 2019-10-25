@@ -13,9 +13,9 @@ export class CpuComponent implements AfterViewInit, OnInit, OnDestroy {
 
     private wsSubscription: Subscription;
 
-    private refresh = true;
+    private refreshCpu = true;
 
-    data: any[] = [];
+    cpuData: any[] = [];
     padding: any = { left: 5, top: 5, right: 5, bottom: 15 };
     titlePadding: any = { left: 0, top: 5, right: 0, bottom: 10 };
 
@@ -48,7 +48,7 @@ export class CpuComponent implements AfterViewInit, OnInit, OnDestroy {
                 },
                 series: [
                     {
-                        dataField: 'value', formatFunction: this.format, displayText: 'Usage', opacity: 0.5, lineWidth: 1
+                        dataField: 'value', formatFunction: this.formatCpu, displayText: 'Usage', opacity: 0.5, lineWidth: 1
                     }
                 ]
             }
@@ -65,9 +65,9 @@ export class CpuComponent implements AfterViewInit, OnInit, OnDestroy {
         for (let i = 0; i < environment.charts.xRange; i++) {
             timestamp.setMilliseconds(0);
             timestamp.setSeconds(timestamp.getSeconds() - 1);
-            this.data.push({ timestamp: new Date(timestamp.valueOf()), value: 0 });
+            this.cpuData.push({ timestamp: new Date(timestamp.valueOf()), value: 0 });
         }
-        this.data = this.data.reverse();
+        this.cpuData = this.cpuData.reverse();
     }
 
     ngAfterViewInit(): void {
@@ -81,7 +81,7 @@ export class CpuComponent implements AfterViewInit, OnInit, OnDestroy {
                 const item: any = JSON.parse(m);
                 item.time = new Date(item.time);
                 data.push({ timestamp: item.time, value: item.cpu });
-                if (this.refresh) {
+                if (this.refreshCpu) {
                   this.cpuChart.update();
                 }
             });
@@ -91,15 +91,11 @@ export class CpuComponent implements AfterViewInit, OnInit, OnDestroy {
         this.wsSubscription.unsubscribe();
     }
 
-    format(value) {
+    formatCpu(value) {
       return `CPU usage: ${value} %`;
     }
 
-    stopRefreshing(): void {
-      this.refresh = false;
-    }
-
-    startRefreshing(): void {
-      this.refresh = true;
+    toggleRefreshingCpu(): void {
+      this.refreshCpu = !this.refreshCpu;
     }
 }

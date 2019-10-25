@@ -1,7 +1,7 @@
-<jqxChart #cpuChart (mouseenter)="stopRefreshing()" (mouseleave)="startRefreshing()"
+<jqxChart #cpuChart (mouseenter)="toggleRefreshingCpu()" (mouseleave)="toggleRefreshingCpu()"
     [width]="'100%'" [height]="'100%'" [showLegend]="false"
     [title]="'System CPU usage (%)'" [enableAxisTextAnimation]="true"
     [description]="''" [animationDuration]="1000" [enableAnimations]="false" [padding]="padding"
-    [titlePadding]="titlePadding" [source]="data" [xAxis]="xAxis"
+    [titlePadding]="titlePadding" [source]="cpuData" [xAxis]="xAxis"
     [valueAxis]="valueAxis" [seriesGroups]="seriesGroups" [colorScheme]="'scheme03'">
 </jqxChart>

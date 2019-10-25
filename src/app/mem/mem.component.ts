@@ -14,9 +14,9 @@ export class MemComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private wsSubscription: Subscription;
 
-  private refresh = true;
+  private refreshMem = true;
 
-  data: any[] = [];
+  memData: any[] = [];
   padding: any = { left: 5, top: 5, right: 5, bottom: 15 };
   titlePadding: any = { left: 0, top: 5, right: 0, bottom: 10 };
 
@@ -49,7 +49,7 @@ export class MemComponent implements OnInit, OnDestroy, AfterViewInit {
         },
         series: [
           {
-            dataField: 'value', formatFunction: this.format, displayText: 'Usage', opacity: 0.5, lineWidth: 1
+            dataField: 'value', formatFunction: this.formatMem, displayText: 'Usage', opacity: 0.5, lineWidth: 1
           }
         ]
       }
@@ -66,9 +66,9 @@ export class MemComponent implements OnInit, OnDestroy, AfterViewInit {
     for (let i = 0; i < environment.charts.xRange; i++) {
       timestamp.setMilliseconds(0);
       timestamp.setSeconds(timestamp.getSeconds() - 1);
-      this.data.push({ timestamp: new Date(timestamp.valueOf()), value: 0 });
+      this.memData.push({ timestamp: new Date(timestamp.valueOf()), value: 0 });
     }
-    this.data = this.data.reverse();
+    this.memData = this.memData.reverse();
   }
 
   ngAfterViewInit(): void {
@@ -82,7 +82,7 @@ export class MemComponent implements OnInit, OnDestroy, AfterViewInit {
         item.time = new Date(item.time);
         data.push({ timestamp: item.time, value: item.memUsed });
         this.seriesGroups.map(s => s.valueAxis.maxValue = Math.round(item.memTotal / 1000) * 1000);
-        if (this.refresh) {
+        if (this.refreshMem) {
           this.memChart.update();
         }
       });
@@ -92,15 +92,11 @@ export class MemComponent implements OnInit, OnDestroy, AfterViewInit {
     this.wsSubscription.unsubscribe();
   }
 
-  format(value) {
+  formatMem(value) {
     return `Memory used: ${value} MB`;
   }
 
-  stopRefreshing(): void {
-    this.refresh = false;
-  }
-
-  startRefreshing(): void {
-    this.refresh = true;
+  toggleRefreshingMem(): void {
+    this.refreshMem = !this.refreshMem;
   }
 }

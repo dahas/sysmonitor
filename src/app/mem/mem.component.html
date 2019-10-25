@@ -1,7 +1,7 @@
-<jqxChart #memChart (mouseenter)="stopRefreshing()" (mouseleave)="startRefreshing()"
+<jqxChart #memChart (mouseenter)="toggleRefreshingMem()" (mouseleave)="toggleRefreshingMem()"
     [width]="'100%'" [height]="'100%'" [showLegend]="false"
     [title]="'Memory used (MB)'" [enableAxisTextAnimation]="true"
     [description]="''" [animationDuration]="1000" [enableAnimations]="false" [padding]="padding"
-    [titlePadding]="titlePadding" [source]="data" [xAxis]="xAxis"
+    [titlePadding]="titlePadding" [source]="memData" [xAxis]="xAxis"
     [valueAxis]="valueAxis" [seriesGroups]="seriesGroups" [colorScheme]="'scheme05'">
 </jqxChart>
