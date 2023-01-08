@@ -34,19 +34,21 @@ export class MemComponent implements OnInit, OnDestroy, AfterViewInit {
       labels: { angle: -0, offset: { x: -17, y: 0 } }
     };
 
+
+  valueAxis: any =
+    {
+      minValue: 0,
+      maxValue: 16000,
+      unitInterval: 2000,
+      // title: { text: 'MegaByte' }
+    };
+
   seriesGroups: any[] =
     [
       {
         type: 'area',
         columnsGapPercent: 10,
         alignEndPointsWithIntervals: true,
-        valueAxis:
-        {
-          minValue: 0,
-          maxValue: 16000,
-          unitInterval: 2000,
-          // title: { text: 'MegaByte' }
-        },
         series: [
           {
             dataField: 'value', formatFunction: this.formatMem, displayText: 'Usage', opacity: 0.5, lineWidth: 1
@@ -80,7 +82,8 @@ export class MemComponent implements OnInit, OnDestroy, AfterViewInit {
         const item: any = JSON.parse(m);
         item.time = new Date(item.time);
         this.memData.push({ timestamp: item.time, value: item.memUsed });
-        this.seriesGroups.map(s => s.valueAxis.maxValue = Math.round(item.memTotal / 1000) * 1000);
+        this.valueAxis.maxValue = Math.round(item.memTotal / 1000) * 1000
+        // this.seriesGroups.map(s => s.valueAxis.maxValue = Math.round(item.memTotal / 1000) * 1000);
         if (this.refreshMem) {
           this.memChart.update();
         }

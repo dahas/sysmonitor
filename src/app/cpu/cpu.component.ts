@@ -33,19 +33,21 @@ export class CpuComponent implements AfterViewInit, OnInit, OnDestroy {
             labels: { angle: -0, offset: { x: -17, y: 0 } }
         };
 
+
+    valueAxis: any =
+        {
+            minValue: 0,
+            maxValue: 100,
+            unitInterval: 20,
+            // title: { text: 'Percentage' }
+        };
+
     seriesGroups: any[] =
         [
             {
                 type: 'area',
                 columnsGapPercent: 10,
                 alignEndPointsWithIntervals: true,
-                valueAxis:
-                {
-                    minValue: 0,
-                    maxValue: 100,
-                    unitInterval: 20,
-                    // title: { text: 'Percentage' }
-                },
                 series: [
                     {
                         dataField: 'value', formatFunction: this.formatCpu, displayText: 'Usage', opacity: 0.5, lineWidth: 1
@@ -96,12 +98,12 @@ export class CpuComponent implements AfterViewInit, OnInit, OnDestroy {
     pauseCpuChartUpdate(ev): void {
         if (ev.target.nodeName === 'path') {
             this.refreshCpu = false;
-          } else {
+        } else {
             this.refreshCpu = true;
-          }
+        }
     }
 
     restartCpuChartUpdate(): void {
-      this.refreshCpu = true;
+        this.refreshCpu = true;
     }
 }

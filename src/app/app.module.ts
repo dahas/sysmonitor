@@ -9,20 +9,20 @@ import { CpuComponent } from './cpu/cpu.component';
 import { SystemInfoService } from './services/system-info.service';
 import { MemComponent } from './mem/mem.component';
 
-import { jqxChartComponent } from 'jqwidgets-ng/jqxchart';
+import { jqxChartModule } from 'jqwidgets-ng/jqxchart';
 import { jqxSplitterModule } from 'jqwidgets-ng/jqxsplitter';
 
 @NgModule({
   declarations: [
     AppComponent,
     CpuComponent,
-    MemComponent,
-    jqxChartComponent
+    MemComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    jqxChartModule,
     jqxSplitterModule
   ],
   providers: [SystemInfoService],
