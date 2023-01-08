@@ -13,6 +13,20 @@
 sudo apt-get install build-essential clang libdbus-1-dev libgtk-3-dev \ libnotify-dev libasound2-dev libcap-dev \ libcups2-dev libxtst-dev \ libxss1 libnss3-dev gcc-multilib g++-multilib curl \ gperf bison python3-dbusmock openjdk-8-jre
 ```
 
+If you have a NodeJS distro with a odd version number running, you might get the following error: 
+
+*openssl-legacy-provider is not allowed*
+
+Try this:
+```
+$ export NODE_OPTIONS=--openssl-legacy-provider
+```
+
+If this doesn´t help, try:
+```
+$ unset NODE_OPTIONS
+```
+
 ### System Monitor
 
 Clone the Repository first. Do this afterwards:
