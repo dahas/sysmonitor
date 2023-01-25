@@ -5,6 +5,8 @@
 - Electron 22.x
 - Angular 15.x
 
+![System Monitor](https://github.com/dahas/sysmonitor/blob/assets/sysmonitor.png?raw=true)
+
 ## Installation
 
 ### Electron
